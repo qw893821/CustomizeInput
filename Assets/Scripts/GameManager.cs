@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
     {
         get { return _instance; }
     }
-    List<string> keys;
+    public List<string> keys;
     public string lKey;
     public string rKey;
     public string uKey;
@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         PUPgame();
+        print(keys.Count);
     }
 
     public void CallText()
@@ -77,14 +78,12 @@ public class GameManager : MonoBehaviour {
             if (e.isKey)
             {
                 newKey = Input.inputString;
-                if (newKey.Length > 1)
-                {
-                    newKey.Remove(1);
-                    print("remove");
-                }
                 if (newKey != null)
                 {
-                    
+                    if (newKey.Length > 1)
+                    {
+                        newKey=newKey.Remove(1);
+                    }
                     foreach (string str in keys)
                     {
                         if (newKey == str)
@@ -94,8 +93,8 @@ public class GameManager : MonoBehaviour {
                         else
                         { change = true;}
                     }
-                    print(newKey);
                 }
+                print(newKey);
             }
         }
     }

@@ -20,6 +20,7 @@ public class ChangeKey : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         SetKey();
+
     }
     
     void CKey()
@@ -40,26 +41,43 @@ public class ChangeKey : MonoBehaviour {
             if (GameManager.GM.change)
             {
                 text.text = GameManager.GM.newKey;
+
                 switch (transform.parent.name)
                 {
                     case "Left":
+                        RemoveKey(GameManager.GM.lKey);
                         GameManager.GM.lKey = GameManager.GM.newKey;
                         break;
                     case "Right":
+                        RemoveKey(GameManager.GM.rKey);
                         GameManager.GM.rKey = GameManager.GM.newKey;
                         break;
                     case "Up":
+                        RemoveKey(GameManager.GM.uKey);
                         GameManager.GM.uKey = GameManager.GM.newKey;
                         break;
                     case "Down":
+                        RemoveKey(GameManager.GM.dKey);
                         GameManager.GM.dKey = GameManager.GM.newKey;
                         break;
                 }
+                AddKey(GameManager.GM.newKey);
                 text.text = GameManager.GM.newKey;
                 GameManager.GM.text.enabled = false;
+                GameManager.GM.newKey = null;
                 delayTimer = 0;
                 trigger = false;
             }
+
         }
+    }
+    void RemoveKey(string key)
+    {
+        GameManager.GM.keys.Remove(key);
+    }
+
+    void AddKey(string key)
+    {
+        GameManager.GM.keys.Add(key);
     }
 }
