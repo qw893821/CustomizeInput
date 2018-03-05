@@ -15,11 +15,10 @@ public class Movement : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
         Vector3 target;
         target = transform.position + MoveDirection();
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-        print(target);
 	}
 
     Vector3 MoveDirection()
