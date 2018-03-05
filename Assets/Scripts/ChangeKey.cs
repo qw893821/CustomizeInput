@@ -20,7 +20,6 @@ public class ChangeKey : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         SetKey();
-        print(delayTimer);
     }
     
     void CKey()
@@ -37,7 +36,6 @@ public class ChangeKey : MonoBehaviour {
         }
         if (delayTimer >= delayTime)
         {
-            print("ready");
             GameManager.GM.WaitKey();
             if (GameManager.GM.change)
             {

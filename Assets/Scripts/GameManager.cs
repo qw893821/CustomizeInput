@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
     public bool change;
     public GameObject textgo;
     public Text text;
-
+    Event e;
 	// Use this for initialization
 	void Start () {
         if (_instance == null)
@@ -66,12 +66,16 @@ public class GameManager : MonoBehaviour {
             Time.timeScale = 1;
         }
     }
+    private void OnGUI()
+    {
+        e = Event.current;
+    }
 
     public void WaitKey()
     {
         if (text.enabled)
         {
-            if (Input.anyKeyDown)
+            if (e.isKey)
             {
                 newKey = Event.current.keyCode.ToString();
             }
