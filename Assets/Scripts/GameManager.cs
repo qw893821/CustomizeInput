@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         PUPgame();
-        print(Time.timeScale);
     }
 
     public void CallText()
@@ -77,15 +76,26 @@ public class GameManager : MonoBehaviour {
         {
             if (e.isKey)
             {
-                newKey = Event.current.keyCode.ToString();
-            }
-            foreach(string str in keys)
-            {
-                if (newKey==str)
+                newKey = Input.inputString;
+                if (newKey.Length > 1)
                 {
-                    text.text = "Key have used, please set new key";
+                    newKey.Remove(1);
+                    print("remove");
                 }
-                else { change = true; }
+                if (newKey != null)
+                {
+                    
+                    foreach (string str in keys)
+                    {
+                        if (newKey == str)
+                        {
+                            text.text = "Key have used, please set new key";
+                        }
+                        else
+                        { change = true;}
+                    }
+                    print(newKey);
+                }
             }
         }
     }
