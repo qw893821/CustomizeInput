@@ -67,9 +67,8 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void ChangeKey()
+    public void WaitKey()
     {
-        CallText();
         if (text.enabled)
         {
             if (Input.anyKeyDown)

@@ -5,40 +5,63 @@ using UnityEngine.UI;
 public class ChangeKey : MonoBehaviour {
     Button btn;
     public Text text;
+    float delayTime;
+    float delayTimer;
+    bool trigger;
 	// Use this for initialization
 	void Start () {
+        delayTime = 1.5f;
+        delayTimer = 0;
         btn = transform.GetComponent<Button>();
-        btn.onClick.AddListener(SetKey);
+        btn.onClick.AddListener(CKey);
+        trigger = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        SetKey();
+        print(delayTimer);
+    }
     
+    void CKey()
+    {  
+        GameManager.GM.CallText();
+        trigger = true;  
+    }
+
     void SetKey()
     {
-        GameManager.GM.ChangeKey();
-        if (GameManager.GM.change)
+        if (trigger)
         {
-            text.text = GameManager.GM.newKey;
-            switch (transform.parent.name)
+            delayTimer += Time.fixedUnscaledDeltaTime;
+        }
+        if (delayTimer >= delayTime)
+        {
+            print("ready");
+            GameManager.GM.WaitKey();
+            if (GameManager.GM.change)
             {
-                case "Left":
-                    GameManager.GM.lKey = GameManager.GM.newKey;
-                    break;
-                case "Right":
-                    GameManager.GM.rKey = GameManager.GM.newKey;
-                    break;
-                case "Up":
-                    GameManager.GM.uKey = GameManager.GM.newKey;
-                    break;
-                case "Down":
-                    GameManager.GM.dKey = GameManager.GM.newKey;
-                    break;
+                text.text = GameManager.GM.newKey;
+                switch (transform.parent.name)
+                {
+                    case "Left":
+                        GameManager.GM.lKey = GameManager.GM.newKey;
+                        break;
+                    case "Right":
+                        GameManager.GM.rKey = GameManager.GM.newKey;
+                        break;
+                    case "Up":
+                        GameManager.GM.uKey = GameManager.GM.newKey;
+                        break;
+                    case "Down":
+                        GameManager.GM.dKey = GameManager.GM.newKey;
+                        break;
+                }
+                text.text = GameManager.GM.newKey;
+                GameManager.GM.text.enabled = false;
+                delayTimer = 0;
+                trigger = false;
             }
-            text.text = GameManager.GM.newKey;
-            GameManager.GM.text.enabled = false;
         }
     }
 }
